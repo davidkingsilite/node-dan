@@ -16,14 +16,13 @@ const getAllNotes = asyncHandler(async (req, res) => {
    
     // Add username to each note before sending the reponse 
     // see promise.all
-    // you could also do this with a for.. of loop
+    // you could also do this with a for.. of loop 
     const notesWithUser = await Promise.all(notes.map(async (note) => {
         const user = await User.findById(note.user).lean().exec()
         return { ...note, username: user.username }
     }))
     res.json(notesWithUser)
 })
-
 
 //@des createNewNotes
 //@route  post/ notes
@@ -49,10 +48,8 @@ const createNewNote = asyncHandler(async(req, res) =>{
         res.status(201).json({ message: 'New note created'})
     } else{
         res.status(400).json({message:'Invalid note data received'})
-    }
-    
+    } 
 })
-
 
 //@des updateUser
 //@route  patch/user
@@ -90,7 +87,6 @@ const updateNote = asyncHandler(async(req, res) =>{
     res.json({ message: `${updatedNote.title} updated` })
 })
 
-
 //@des deleteUser
 //@route  delete/user
 //@access private
@@ -112,7 +108,6 @@ const deleteNote = asyncHandler(async(req, res) =>{
 
         res.json(reply)
 })
-
 
 module.exports = {
     getAllNotes,
